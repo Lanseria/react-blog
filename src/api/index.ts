@@ -18,7 +18,7 @@ const request = axios.create({
   baseURL,
 });
 
-export const setToken = (token: string) => {
+export const setToken = (token?: string) => {
   if (!token) {
     localStorage.removeItem('access_token');
     request.defaults.headers.common['Authorization'] = undefined;

@@ -8,7 +8,12 @@ export interface Props {
 }
 export const NavLink: FunctionComponent<Props> = ({ to, icon, label }) => (
   <li className='nav-item'>
-    <Link className='nav-link active' to={to}>
+    <Link
+      to={to}
+      getProps={({ isCurrent }) => ({
+        className: `nav-link ${isCurrent && 'active'}`,
+      })}
+    >
       {icon && <i className={icon}></i>}&nbsp;{label}
     </Link>
   </li>
