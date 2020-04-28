@@ -21,11 +21,12 @@ const request = axios.create({
 export const setToken = (token?: string) => {
   if (!token) {
     localStorage.removeItem('access_token');
-    request.defaults.headers.common['Authorization'] = undefined;
+    delete request.defaults.headers.common['Authorization'];
   } else {
     localStorage.setItem('access_token', token);
     request.defaults.headers.common['Authorization'] = `Token ${token}`;
   }
+  console.log(request.defaults.headers.common['Authorization']);
 };
 
 // auth

@@ -295,7 +295,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
 
         <div class="article-preview">
           <div class="article-meta">
-            <a href=""><img src="http://i.imgur.com/Qr71crq.jpg"/></a>
+            <a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
               <a href="" class="author">Eric Simons</a>
               <span class="date">January 20th</span>
@@ -313,7 +313,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
 
         <div class="article-preview">
           <div class="article-meta">
-            <a href=""><img src="http://i.imgur.com/N4VcUeJ.jpg"/></a>
+            <a href=""><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
             <div class="info">
               <a href="" class="author">Albert Pai</a>
               <span class="date">January 20th</span>
@@ -455,7 +455,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
       <h1>How to build webapps that scale</h1>
 
       <div class="article-meta">
-        <a href=""><img src="http://i.imgur.com/Qr71crq.jpg"/></a>
+        <a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
         <div class="info">
           <a href="" class="author">Eric Simons</a>
           <span class="date">January 20th</span>
@@ -489,7 +489,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
 
     <div class="article-actions">
       <div class="article-meta">
-        <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg"/></a>
+        <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
         <div class="info">
           <a href="" class="author">Eric Simons</a>
           <span class="date">January 20th</span>

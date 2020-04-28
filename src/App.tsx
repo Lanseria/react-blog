@@ -11,13 +11,12 @@ export const Temp: FunctionComponent<RouteComponentProps> = () => (
 );
 
 export const App = () => {
-  const { actions } = useOvermind();
-  useMount(() => {
-    actions.login({
-      email: 'username@fmail.com',
-      password: 'password',
-    });
-  });
+  const {
+    actions: {
+      auth: { initializeUser },
+    },
+  } = useOvermind();
+  useMount(initializeUser);
   return (
     <Layout>
       <Router>
