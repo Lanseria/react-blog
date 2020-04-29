@@ -5,6 +5,8 @@ import { RouteComponentProps, Router } from '@reach/router';
 import { Layout } from './components/Layout';
 import { Auth } from './pages/Auth';
 import { useOvermind } from './store';
+import { Settings } from './pages/Settings';
+import { Profile } from './pages/Profile';
 
 export const Temp: FunctionComponent<RouteComponentProps> = () => (
   <div>Hello World </div>
@@ -20,9 +22,11 @@ export const App = () => {
   return (
     <Layout>
       <Router>
+        <Temp path='/'></Temp>
         <Auth path='/login' auth='login'></Auth>
         <Auth path='/register' auth='register'></Auth>
-        <Temp default></Temp>
+        <Settings path='/settings'></Settings>
+        <Profile path='/:username'></Profile>
       </Router>
     </Layout>
   );

@@ -26,7 +26,6 @@ export const setToken = (token?: string) => {
     localStorage.setItem('access_token', token);
     request.defaults.headers.common['Authorization'] = `Token ${token}`;
   }
-  console.log(request.defaults.headers.common['Authorization']);
 };
 
 // auth

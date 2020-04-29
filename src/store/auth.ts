@@ -17,7 +17,7 @@ interface State extends IState {
 
 export const state: State = {
   currentUser: null,
-  authenticating: false,
+  authenticating: true,
   authenticated: (state) => Boolean(state.currentUser),
   errors: [],
 };
