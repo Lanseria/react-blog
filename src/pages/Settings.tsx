@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import { RouteComponentProps, Redirect } from '@reach/router';
+import { RouteComponentProps, Redirect, Link } from '@reach/router';
 import { useOvermind } from '../store';
 import { SettingForm } from '../components/SettingsForm';
 
 export const Settings: FunctionComponent<RouteComponentProps> = () => {
   const {
     state: {
-      auth: { authenticating, authenticated },
+      auth: { authenticating, authenticated, currentUser },
       profile: { errors },
     },
     actions: {
@@ -32,12 +32,19 @@ export const Settings: FunctionComponent<RouteComponentProps> = () => {
             )}
             <SettingForm></SettingForm>
             <button
-              className='btn btn-outline-danger  pull-xs-right'
+              className='btn btn-outline-danger pull-xs-right'
               style={{ marginTop: '10px' }}
               onClick={logout}
             >
               Logout
             </button>
+            <Link
+              className='btn pull-xs-right'
+              style={{ marginTop: '10px' }}
+              to={`/${currentUser?.username}`}
+            >
+              My Profile
+            </Link>
           </div>
         </div>
       </div>

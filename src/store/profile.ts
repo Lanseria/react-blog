@@ -1,6 +1,6 @@
 import { IState, AsyncAction } from 'overmind';
 import { UserDTO, ProfileResponse } from '../api/models';
-import { processErrors } from '../utils';
+import { formatErrors } from '../utils';
 
 interface State extends IState {
   loading: boolean;
@@ -25,9 +25,10 @@ const getUser: AsyncAction<string> = async ({ state, effects }, value) => {
     } = await effects.getUser(value);
     state.profile.users[value] = profile;
   } catch (err) {
-    state.profile.errors = processErrors(err);
+    state.profile.errors = formatErrors(err);
+  } finally {
+    state.profile.loading = false;
   }
-  state.profile.loading = false;
 };
 
 const updateCurrentUser: AsyncAction<UserDTO> = async (
@@ -43,11 +44,39 @@ const updateCurrentUser: AsyncAction<UserDTO> = async (
     });
     state.auth.currentUser = user;
   } catch (err) {
-    state.profile.errors = processErrors(err);
+    state.profile.errors = formatErrors(err);
+  }
+};
+
+const followUser: AsyncAction<string> = async (
+  { actions, state, effects },
+  username,
+) => {
+  try {
+    await effects.followUser(username);
+  } catch (err) {
+    state.profile.errors = formatErrors(err);
+  } finally {
+    actions.profile.getUser(username);
+  }
+};
+
+const unfollowUser: AsyncAction<string> = async (
+  { actions, state, effects },
+  username,
+) => {
+  try {
+    await effects.unfollowUser(username);
+  } catch (err) {
+    state.profile.errors = formatErrors(err);
+  } finally {
+    actions.profile.getUser(username);
   }
 };
 
 export const actions = {
   updateCurrentUser,
   getUser,
+  followUser,
+  unfollowUser,
 };

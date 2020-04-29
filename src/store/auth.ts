@@ -6,7 +6,7 @@ import {
   RegisterDTO,
   ProfileResponse,
 } from '../api/models';
-import { processErrors } from '../utils';
+import { formatErrors } from '../utils';
 
 interface State extends IState {
   currentUser: AuthResponse | ProfileResponse | null;
@@ -33,7 +33,7 @@ const initializeUser: AsyncAction = async ({ state, effects }) => {
       } = await effects.getCurrentUser();
       state.auth.currentUser = user;
     } catch (err) {
-      state.auth.errors = processErrors(err);
+      state.auth.errors = formatErrors(err);
       effects.setToken();
       state.auth.currentUser = null;
     }
@@ -51,11 +51,12 @@ const login: AsyncAction<LoginDTO> = async ({ state, effects }, value) => {
     effects.setToken(user.token);
     state.auth.currentUser = user;
   } catch (err) {
-    state.auth.errors = processErrors(err);
+    state.auth.errors = formatErrors(err);
     effects.setToken();
     state.auth.currentUser = null;
+  } finally {
+    state.auth.authenticating = false;
   }
-  state.auth.authenticating = false;
 };
 
 const register: AsyncAction<RegisterDTO> = async (
@@ -70,11 +71,12 @@ const register: AsyncAction<RegisterDTO> = async (
     effects.setToken(user.token);
     state.auth.currentUser = user;
   } catch (err) {
-    state.auth.errors = processErrors(err);
+    state.auth.errors = formatErrors(err);
     effects.setToken();
     state.auth.currentUser = null;
+  } finally {
+    state.auth.authenticating = false;
   }
-  state.auth.authenticating = false;
 };
 
 const logout: Action = ({ state, effects }) => {

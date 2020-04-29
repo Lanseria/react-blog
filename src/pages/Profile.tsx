@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useOvermind } from '../store';
+import { ProfileButton, ProfileButtonType } from '../components/ProfileButton';
+import { ProfileResponse } from '../api/models';
 
 type Props = RouteComponentProps<{ username: string }>;
 
@@ -19,20 +21,27 @@ export const Profile: FunctionComponent<Props> = ({ username }) => {
       getUser(username);
     }
   }, [currentUser, getUser, username, users]);
-  let user;
+  let user: ProfileResponse | null = null;
+  let isCurrentUser = false;
   if (username && currentUser?.username === username) {
-    user = currentUser;
+    user = currentUser as ProfileResponse;
+    isCurrentUser = true;
   } else if (username) {
     user = users[username];
   }
+  const type = isCurrentUser
+    ? ProfileButtonType.settings
+    : user?.following
+    ? ProfileButtonType.unfollow
+    : ProfileButtonType.follow;
   return (
     <div className='profile-page'>
       <div className='user-info'>
         <div className='container'>
           <div className='row'>
             <div className='col-xs-12 col-md-10 offset-md-1'>
-              {loading ? (
-                <h4>loading</h4>
+              {loading && !user ? (
+                <h4>Loading...</h4>
               ) : (
                 <>
                   {user?.image && (
@@ -44,12 +53,12 @@ export const Profile: FunctionComponent<Props> = ({ username }) => {
                   )}
                   <h4>{user?.username}</h4>
                   <p>{user?.bio}</p>
+                  <ProfileButton
+                    type={type}
+                    username={user?.username}
+                  ></ProfileButton>
                 </>
               )}
-              <button className='btn btn-sm btn-outline-secondary action-btn'>
-                <i className='ion-plus-round'></i>
-                &nbsp; Follow Eric Simons
-              </button>
             </div>
           </div>
         </div>
