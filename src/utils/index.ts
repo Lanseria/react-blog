@@ -18,3 +18,7 @@ export const formatErrors = (err: any) => {
     return errors;
   }
 };
+
+const imgRegex: RegExp = /\.(gif|jpeg|jpg|tiff|png|webp|bmp)$/i;
+
+export const isImg = (str: string) => imgRegex.test(str);

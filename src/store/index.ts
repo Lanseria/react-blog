@@ -5,6 +5,7 @@ import { createHook } from 'overmind-react';
 import * as api from '../api';
 import * as auth from './auth';
 import * as profile from './profile';
+import * as article from './article';
 
 const config = merge(
   {
@@ -13,6 +14,7 @@ const config = merge(
   namespaced({
     auth,
     profile,
+    article
   }),
 );
 

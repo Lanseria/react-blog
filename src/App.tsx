@@ -1,16 +1,14 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { useMount } from 'react-use';
-import { RouteComponentProps, Router } from '@reach/router';
+import { Router, globalHistory } from '@reach/router';
+import { QueryParamProvider } from 'use-query-params';
 
 import { Layout } from './components/Layout';
 import { Auth } from './pages/Auth';
 import { useOvermind } from './store';
 import { Settings } from './pages/Settings';
 import { Profile } from './pages/Profile';
-
-export const Temp: FunctionComponent<RouteComponentProps> = () => (
-  <div>Hello World </div>
-);
+import { Home } from './pages/Home';
 
 export const App = () => {
   const {
@@ -21,13 +19,15 @@ export const App = () => {
   useMount(initializeUser);
   return (
     <Layout>
-      <Router>
-        <Temp path='/'></Temp>
-        <Auth path='/login' auth='login'></Auth>
-        <Auth path='/register' auth='register'></Auth>
-        <Settings path='/settings'></Settings>
-        <Profile path='/:username'></Profile>
-      </Router>
+      <QueryParamProvider reachHistory={globalHistory}>
+        <Router>
+          <Home path='/'></Home>
+          <Auth path='/login' auth='login'></Auth>
+          <Auth path='/register' auth='register'></Auth>
+          <Settings path='/settings'></Settings>
+          <Profile path='/:username'></Profile>
+        </Router>
+      </QueryParamProvider>
     </Layout>
   );
 };

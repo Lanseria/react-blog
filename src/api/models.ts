@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-interface BaseEntity {
+export interface BaseEntity {
   id: number;
   createdAt: string;
   updatedAt: string;
@@ -64,7 +64,7 @@ export type ArticleAllQuery = Partial<{
 }> &
   ArticleFeedQuery;
 
-export interface ArticleResponse {
+export interface ArticleResponse extends BaseEntity {
   slug: string;
   title: string;
   description: string;
