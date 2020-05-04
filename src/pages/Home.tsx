@@ -4,26 +4,27 @@ import { useOvermind } from '../store';
 import { useMount } from 'react-use';
 import { Tags } from '../components/Tags';
 import { ArticleList } from '../components/ArticleList';
-import { useQueryParam, StringParam } from 'use-query-params';
+import { useQueryParam, StringParam, NumberParam } from 'use-query-params';
 
 export const Home: FunctionComponent<RouteComponentProps> = () => {
   const [tag] = useQueryParam('tag', StringParam);
+  const [page, setPage] = useQueryParam('page', NumberParam);
   const {
     state: {
       article: { tags, list, loading },
     },
     actions: {
-      article: { loadTags, loadArticle, loadArticleByTag },
+      article: { loadTags, setCurrentPage },
     },
   } = useOvermind();
   useMount(() => tags.length < 1 && loadTags());
   useEffect(() => {
-    if (tag) {
-      loadArticleByTag({ tag });
-    } else {
-      loadArticle(0);
-    }
-  }, [loadArticle, loadArticleByTag, tag]);
+    setCurrentPage(
+      tag
+        ? { type: 'tag', page: page || 0, tag }
+        : { type: 'all', page: page || 0 },
+    );
+  }, [page, setCurrentPage, tag]);
   return (
     <div className='home-page'>
       <div className='banner'>
